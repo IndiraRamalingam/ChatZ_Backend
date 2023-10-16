@@ -32,8 +32,8 @@ const resetPassword ={
       {new:true},
     );
 
-      let link = `http://localhost:5173/reset_password/${token}`;
-   // let link = `https://ushortener.netlify.app/reset_password/${token}`;       
+   //   let link = `http://localhost:5173/reset_password/${token}`;
+    let link = `chatz-app-socket.netlify.app/reset_password/${token}`;       
 
     await sendMail(userDB.email, "ChatZ App - Reset your password ", `Hello!!, You have requested to reset your password.
 

@@ -50,7 +50,7 @@ const userController={
         }
         catch(error){
             console.error('Error sending link to Email',error)
-            // res.status(500).json({message:'Activation Error'})
+
         }
     },
 
@@ -84,6 +84,47 @@ const userController={
             console.log('Error signing in user', error);
             res.status(500).json({message: 'Internal Server error'});
         }
+    },
+
+    getAllIds:async(req,res) =>{
+        try{
+            console.log(req.params.id)
+            const users = await User.find({ _id: { $ne: req.params.id } }).select([
+                "email",
+                "name",
+                // "avatarImage",
+                "_id",
+              ]);
+              console.log(users)
+              return res.json(users);
+        }
+        catch(error)
+        {
+            console.log("Error in fetching all user details");
+            res.status(500).json({message: 'Error in fetching all user details'});
+        }
+    },
+
+    setAvatar:async(req,res)=>{
+        try {
+            const userId = req.params.id;
+            const avatarImage = req.body.image;
+            const userData = await User.findByIdAndUpdate(
+              userId,
+              {
+                isAvatarImageSet: true,
+                avatarImage,
+              },
+              { new: true }
+            );
+            return res.json({
+              isSet: userData.isAvatarImageSet,
+              image: userData.avatarImage,
+            });
+          } catch (ex) {
+            next(ex);
+          }
+
     },
 
    

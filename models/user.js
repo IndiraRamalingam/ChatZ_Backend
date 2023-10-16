@@ -29,10 +29,14 @@ const userSchema=new Schema({
         type:Date,
         default:Date.now
     },
-    url:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Url'
-    }],
+    isAvatarImageSet: {
+        type: Boolean,
+        default: false,
+      },
+      avatarImage: {
+        type: String,
+        default: "",
+      }
 })
 
 module.exports=mongoose.model('User',userSchema,'users');
